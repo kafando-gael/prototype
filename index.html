@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitConnect - Interactive Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .page {
+            display: none; /* All pages hidden by default */
+        }
+        .page.active {
+            display: block; /* The active page is shown */
+        }
+        .wireframe-screen {
+            border: 2px solid #9ca3af;
+            border-radius: 16px;
+            width: 375px;
+            height: 720px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+        }
+        .wireframe-body {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .wireframe-header {
+            background: #f3f4f6;
+            padding: 16px;
+            border-bottom: 2px solid #e5e7eb;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            font-weight: 700;
+            color: #3b82f6;
+            cursor: pointer;
+        }
+        .placeholder-box {
+            background: #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+        .button-primary { background-color: #3b82f6; }
+        .button-secondary { background-color: #6b7280; }
+        .list-item {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+
+<div class="wireframe-screen">
+
+    <!-- PAGE 1: Home (Default Active) -->
+    <div id="page-home" class="page active" style="height: 100%; display: flex; flex-direction: column;">
+        <div class="wireframe-header">FitConnect - Home</div>
+        <div class="wireframe-body flex flex-col justify-center">
+            <div class="text-center mb-6">
+                <div class="text-2xl font-bold">Hi, Sarah!</div>
+                <div class="text-gray-500">What would you like to do?</div>
+            </div>
+            <div class="button button-primary" onclick="showPage('page-search')">Find a Trainer</div>
+            <div class="button button-secondary">Find a Workout Buddy</div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Trainer Search Results -->
+    <div id="page-search" class="page" style="height: 100%; display: none; flex-direction: column;">
+        <div class="wireframe-header">
+            <div class="back-button" onclick="showPage('page-home')">&lt; Back</div>
+            Find a Trainer
+        </div>
+        <div class="wireframe-body">
+            <div class="placeholder-box">Search Bar & Filter Button</div>
+            <div class="list-item" onclick="showPage('page-profile')">
+                <p class="font-bold">Mark Johnson</p>
+                <p class="text-sm">⭐️ 4.8 | Weightlifting</p>
+                <p class="text-sm">$20/session</p>
+            </div>
+            <div class="list-item">
+                <p class="font-bold">Ana Rodriguez</p>
+                <p class="text-sm">⭐️ 4.5 | Yoga</p>
+                <p class="text-sm">$18/session</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: Trainer Profile -->
+    <div id="page-profile" class="page" style="height: 100%; display: none; flex-direction: column;">
+        <div class="wireframe-header">
+            <div class="back-button" onclick="showPage('page-search')">&lt; Back</div>
+            Trainer Profile
+        </div>
+        <div class="wireframe-body">
+            <div class="placeholder-box h-32">
+                <p class="text-xl font-bold">Mark Johnson</p>
+            </div>
+            <div class="placeholder-box h-48">"About Me" Text...</div>
+            <div class="placeholder-box h-24">Reviews...</div>
+        </div>
+        <div class="p-4 border-t-2 border-gray-200">
+            <div class="button button-primary" onclick="showPage('page-book')">Book Session</div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: Book/Pay (Use Case: Book & Pay) -->
+    <div id="page-book" class="page" style="height: 100%; display: none; flex-direction: column;">
+        <div class="wireframe-header">
+            <div class="back-button" onclick="showPage('page-profile')">&lt; Back</div>
+            Book Session
+        </div>
+        <div class="wireframe-body">
+            <h2 class="text-xl font-bold mb-4">Confirm Booking</h2>
+            <p class="mb-2"><strong>Trainer:</strong> Mark Johnson</p>
+            <p class="mb-4"><strong>Time:</strong> Mon, Oct 21 @ 3:00 PM</p>
+
+            <h3 class="font-bold mb-2">Payment Details</h3>
+            <input type="text" placeholder="Card Number">
+            <input type="text" placeholder="Name on Card">
+        </div>
+        <div class="p-4 border-t-2 border-gray-200">
+            <div class="button button-primary" onclick="showPage('page-confirm')">Confirm & Pay $20</div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: Confirmation -->
+    <div id="page-confirm" class="page" style="height: 100%; display: none; flex-direction: column;">
+        <div class="wireframe-header">Confirmed!</div>
+        <div class="wireframe-body flex flex-col justify-center items-center">
+            <div class="text-6xl mb-4">✅</div>
+            <h2 class="text-2xl font-bold mb-2">Booking Confirmed!</h2>
+            <p class="text-center mb-6">Your session with Mark Johnson is set for Monday, Oct 21st.</p>
+            <div class="button button-primary" onclick="showPage('page-home')">Back to Home</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Simple JavaScript for page navigation
+    let activePage = 'page-home';
+
+    function showPage(pageId) {
+        // Hide the current active page
+        document.getElementById(activePage).style.display = 'none';
+
+        // Show the new page
+        const newPage = document.getElementById(pageId);
+        newPage.style.display = 'flex'; // Use flex to match the column layout
+        newPage.classList.add('active');
+
+        // Update the active page ID
+        activePage = pageId;
+    }
+</script>
+
+</body>
+</html>
